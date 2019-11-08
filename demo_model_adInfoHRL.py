@@ -5,7 +5,7 @@ import tensorflow as tf
 tf.logging.set_verbosity(tf.logging.ERROR)
 
 import numpy as np
-import gym
+import gym, roboschool
 
 import argparse
 import pprint as pp
@@ -206,7 +206,7 @@ if __name__ == '__main__':
     parser.set_defaults(trial_idx=2)
     parser.set_defaults(option_num=4)
 
-    parser.set_defaults(env='Walker2d-v1')
+    parser.set_defaults(env='RoboschoolAnt-v1')
     parser.set_defaults(use_gym_monitor=True)
     parser.set_defaults(render_env=True)
 

@@ -16,9 +16,9 @@ To see the performance of a policy trained on the Walker2D-v1, run
 ```
 python demo_model_adInfoHRL.py 
 ```
-To train a policy on HalfCheetah-v1 with adInfoHRL, run
+To train a policy on 'RoboschoolAnt-v1' with adInfoHRL, run
 ```
-python adInfoHRL.py --env HalfCheetah-v1
+python adInfoHRL.py --env 'RoboschoolAnt-v1'
 ```
 To train a policy on HalfCheetah-v1 with TD3, run
 ```

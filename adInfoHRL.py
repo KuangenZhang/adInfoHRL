@@ -1,6 +1,6 @@
 import tensorflow as tf
 import numpy as np
-import gym
+import gym, roboschool
 from gym import wrappers
 from scipy.stats import multivariate_normal
 import argparse
@@ -196,6 +196,7 @@ def train(sess, env, env_test, args, agent):
             if total_step_cnt < 1e4:
                 action = env.action_space.sample()
                 p = 1
+                state2, reward, terminal, info = env.step(action)
             else:
                 if j % int(args['temporal_num']) == 0 or not np.isscalar(option):
                     option, _, Q_predict = agent.softmax_option_target(np.reshape(state, (1, agent.state_dim)))
@@ -206,10 +207,9 @@ def train(sess, env, env_test, args, agent):
                 action = agent.predict_actor_option(np.reshape(state, (1, agent.state_dim)), option)
                 noise = np.random.normal(0, action_noise, size=env.action_space.shape[0])
                 p_noise = multivariate_normal.pdf(noise, np.zeros(shape=env.action_space.shape[0]), action_noise*action_noise*np.identity(noise.shape[0]))
-                action = (action + noise).clip(env.action_space.low,env.action_space.high)
+                action = (action + noise).clip(env.action_space.low, env.action_space.high)
                 p = p_noise * np.asarray(softmax(Q_predict))[0][option]
-
-            state2, reward, terminal, info = env.step(action[0])
+                state2, reward, terminal, info = env.step(action[0])
 
             replay_buffer.add(np.reshape(state, (agent.state_dim,)), np.reshape(action, (agent.action_dim,)), reward,
                               terminal, np.reshape(state2, (agent.state_dim,)), np.reshape(p, (1,)))
