@@ -97,10 +97,10 @@ class adInfoHRLTD3(object):
         #                               Actor Model                             #
         # ===================================================================== #
 
-        self.actor_state_input_list =[]
-        self.actor_out_list =[]
-        self.actor_model_list =[]
-        self.actor_weight_list =[]
+        self.actor_state_input_list = []
+        self.actor_out_list = []
+        self.actor_model_list = []
+        self.actor_weight_list = []
         for i in range(self.option_num):
             actor_state_input, actor_out, actor_model, actor_weights = self.create_actor_model()
             self.actor_state_input_list.append(actor_state_input)
@@ -401,8 +401,8 @@ class adInfoHRLTD3(object):
             action_i = self.predict_actor_target(inputs, o)
             Q_predict_i, _ = self.predict_critic_target(inputs, action_i)
 
-            if o ==0:
-                Q_predict = np.reshape( Q_predict_i, (-1, 1) )
+            if o == 0:
+                Q_predict = np.reshape(Q_predict_i, (-1, 1) )
             else:
                 Q_predict = np.concatenate((Q_predict, np.reshape(Q_predict_i, (-1, 1)) ), axis= 1)
 
